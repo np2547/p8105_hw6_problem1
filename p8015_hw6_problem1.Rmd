@@ -10,13 +10,13 @@ output:
 library(flexdashboard)
 library(tidyverse)
 library(forcats)
-<<<<<<< HEAD
-
-ny_noaa = read.csv("../data/nynoaadat.zip")
-=======
 library(plotly)
-library(rnoaa)
->>>>>>> 647c0e6c700e720f1bbbd99bd252c84cda704456
+library(janitor)
+library(tidyr)
+
+ny_noaa = read_csv("../data/nynoaadat.zip") %>%
+  clean_names %>%
+  separate(date, into = c("year", "month","date"), sep = "-")
 ```
 
 Column {data-width=650}
