@@ -6,7 +6,7 @@ output:
     vertical_layout: fill
 ---
 
-```{r setup, include=FALSE}
+```{r setup, cachedChunk, cache = TRUE}
 library(flexdashboard)
 library(tidyverse)
 library(forcats)
@@ -26,7 +26,7 @@ Column {data-width=650}
 
 ### Figure 1: General Trend of Precipitation
 
-```{r}
+```{r, cachedChunk, cache = TRUE}
 ny_noaa %>%
   select("year", "prcp") %>%
   na.omit() %>%
