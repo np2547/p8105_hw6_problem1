@@ -10,8 +10,13 @@ output:
 library(flexdashboard)
 library(tidyverse)
 library(forcats)
+<<<<<<< HEAD
 
 ny_noaa = read.csv("../data/nynoaadat.zip")
+=======
+library(plotly)
+library(rnoaa)
+>>>>>>> 647c0e6c700e720f1bbbd99bd252c84cda704456
 ```
 
 Column {data-width=650}
