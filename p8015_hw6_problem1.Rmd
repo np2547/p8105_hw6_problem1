@@ -11,22 +11,15 @@ library(flexdashboard)
 library(tidyverse)
 library(forcats)
 library(plotly)
-<<<<<<< HEAD
 library(janitor)
 library(tidyr)
+library(dplyr)
 
 ny_noaa = read_csv("../data/nynoaadat.zip") %>%
   clean_names %>%
   separate(date, into = c("year", "month","date"), sep = "-")
-=======
-<<<<<<< HEAD
-library(dplyr)
 
-=======
-library(rnoaa)
->>>>>>> 647c0e6c700e720f1bbbd99bd252c84cda704456
->>>>>>> 5823075ec7447ec277578b01de7c63de6ef25e92
->>>>>>> 4f7aaa401918cd3b73b06048a37bbac6764e315d
+
 ```
 
 Column {data-width=650}
