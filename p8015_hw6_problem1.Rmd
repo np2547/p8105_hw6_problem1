@@ -31,8 +31,9 @@ ny_noaa %>%
   select("year", "prcp") %>%
   na.omit() %>%
   mutate(year = as.factor(year)) %>%
-  plot_ly(y = ~prcp, color = ~year, type = "box",
-          colors = "Set2")
+  plot_ly(y = ~prcp, color = ~year, type = "box", colors = "Set2") %>%
+    layout(title = "Yearly Precipitation Trends over time",
+           scene = list(yaxis = list(title = "Precipitation (in.)")))
 ```
 
 Column {data-width=350}
