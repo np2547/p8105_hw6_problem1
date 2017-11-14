@@ -30,8 +30,7 @@ Column {data-width=650}
 ny_noaa %>%
   select("year", "prcp") %>%
   na.omit() %>%
-  group_by(year) %>%
-  mutate(year = as.numeric(year)) %>%
+  mutate(year = as.factor(year)) %>%
   plot_ly(y = ~prcp, color = ~year, type = "box",
           colors = "Set2")
 ```
