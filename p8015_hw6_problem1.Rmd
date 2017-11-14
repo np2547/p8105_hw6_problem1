@@ -11,7 +11,8 @@ library(flexdashboard)
 library(tidyverse)
 library(forcats)
 library(plotly)
-library(rnoaa)
+library(dplyr)
+
 ```
 
 Column {data-width=650}
