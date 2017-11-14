@@ -10,6 +10,8 @@ output:
 library(flexdashboard)
 library(tidyverse)
 library(forcats)
+
+ny_noaa = read.csv("../data/nynoaadat.zip")
 ```
 
 Column {data-width=650}
