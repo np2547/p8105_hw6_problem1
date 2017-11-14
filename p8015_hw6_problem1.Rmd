@@ -10,6 +10,8 @@ output:
 library(flexdashboard)
 library(tidyverse)
 library(forcats)
+library(plotly)
+library(rnoaa)
 ```
 
 Column {data-width=650}
