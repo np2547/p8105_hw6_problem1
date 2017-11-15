@@ -14,11 +14,15 @@ library(plotly)
 library(janitor)
 library(tidyr)
 library(dplyr)
+library(lubridate)
 
 ny_noaa = read_csv("../data/nynoaadat.zip") %>%
   clean_names %>%
   separate(date, into = c("year", "month","day"), sep = "-") %>%
-  filter(year >= 2000) 
+  filter(year >= 2000) %>%
+  na.omit() %>%
+  mutate(tmax = as.numeric(tmax), tmin = as.numeric(tmin))
+  
 ```
 
 Column {data-width=650}
@@ -74,4 +78,3 @@ ny_noaa %>%
 
 #want to change numbers to month names
 ```
-
