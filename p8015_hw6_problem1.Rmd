@@ -17,7 +17,7 @@ library(dplyr)
 
 ny_noaa = read_csv("../data/nynoaadat.zip") %>%
   clean_names %>%
-  separate(date, into = c("year", "month","date"), sep = "-")
+  separate(date, into = c("year", "month","day"), sep = "-")
 
 ```
 
@@ -32,9 +32,7 @@ ny_noaa %>%
   na.omit() %>%
   filter(prcp < 3000) %>%
   mutate(year = as.factor(year)) %>%
-  plot_ly(y = ~prcp, color = ~year, type = "box", colors = "Set2") %>%
-    layout(title = "Yearly Precipitation Trends over time",
-           yaxis = "Precipitation (in.)")
+  plot_ly(y = ~prcp, color = ~year, type = "box", colors = "Set2") 
 ```
 
 Column {data-width=350}
@@ -42,7 +40,15 @@ Column {data-width=350}
 
 ### Chart B
 
-```{r}
+```{r, cache = TRUE}
+ny_noaa %>%
+  select(year, month, day, prcp) %>%
+  mutate(year = as.factor(year)) %>%
+  group_by(month, day) %>%
+  plot_ly(y= ~mean(prcp), x = ~month, color = ~year, type = "scatter")
+
+
+
 
 ```
 
