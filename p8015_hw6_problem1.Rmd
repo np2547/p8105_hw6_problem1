@@ -70,11 +70,9 @@ ny_noaa %>%
 ny_noaa %>%
   select("year", "month", "tmax") %>%
   na.omit() %>%
-  mutate(tmax = as.numeric((tmax))) %>%
+  mutate(tmax = as.numeric(tmax)) %>%
   group_by(year, month) %>%
   summarize(mean_tmax = mean(tmax)) %>%
   plot_ly(y = ~mean_tmax, color = ~month, type = "box") %>%
     layout(title = "Average Maximum Temperatures for 2000-2010")
-
-#want to change numbers to month names
 ```
