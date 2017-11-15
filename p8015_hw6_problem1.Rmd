@@ -30,11 +30,10 @@ Column {data-width=650}
 ny_noaa %>%
   select("year", "prcp") %>%
   na.omit() %>%
-  filter(prcp < 3000) %>%
+  filter(year >= 2000) %>%
   mutate(year = as.factor(year)) %>%
   plot_ly(y = ~prcp, color = ~year, type = "box", colors = "Set2") %>%
-    layout(title = "Yearly Precipitation Trends over time",
-           yaxis = "Precipitation (in.)")
+    layout(title = "Yearly Precipitation Trends over time")
 ```
 
 Column {data-width=350}
