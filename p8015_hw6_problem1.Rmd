@@ -17,7 +17,10 @@ library(dplyr)
 
 ny_noaa = read_csv("../data/nynoaadat.zip") %>%
   clean_names %>%
-  separate(date, into = c("year", "month","date"), sep = "-")
+  separate(date, into = c("year", "month","day"), sep = "-") %>%
+  filter(year >= 2000) %>%
+  select(everything())
+
 
 ```
 
@@ -27,13 +30,14 @@ Column {data-width=650}
 ### Figure 1: General Trend of Precipitation
 
 ```{r, cachedChunk, cache = TRUE}
-ny_noaa %>%
+figure_1 = ny_noaa %>%
   select("year", "prcp") %>%
   na.omit() %>%
   filter(year >= 2000) %>%
   mutate(year = as.factor(year)) %>%
-  plot_ly(y = ~prcp, color = ~year, type = "box", colors = "Set2") %>%
+ plot_ly(y = ~prcp, color = ~year, type = "box", colors = "Set2") %>%
     layout(title = "Yearly Precipitation Trends over time")
+
 ```
 
 Column {data-width=350}
@@ -41,7 +45,21 @@ Column {data-width=350}
 
 ### Chart B
 
-```{r}
+```{r, cache = TRUE}
+# figure_2 = ny_noaa %>%
+#   select(year, month, day, prcp) %>%
+#   mutate(year = as.factor(year)) %>%
+#   group_by(month, day) %>%
+#   plot_ly(y= ~mean(prcp), x = ~month, color = ~year, type = "scatter")
+
+figure_2 = ny_noaa%>%
+  select(year, month, day, tmin, tmax) %>%
+  na.omit() %>%
+  group_by(year) %>%
+summarize(mean_tmin = mean(tmin),  
+          mean_tmax = mean(tmax))
+  plot_ly( mean_tmin , mean_tmax , type = "scatter", mode = "points", color = year)
+
 
 
 
