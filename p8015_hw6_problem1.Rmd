@@ -28,7 +28,7 @@ ny_noaa = read_csv("../data/nynoaadat.zip") %>%
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Figure 1: General Trend of Precipitation
+### Figure 1: Annual Precipitation Trends
 
 ```{r, cachedChunk, cache = TRUE}
 ny_noaa %>%
@@ -45,26 +45,23 @@ ny_noaa %>%
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### Figure 2: Comparison of Annual Maximum and Minimum Temperature Readings
 
 ```{r, cache = TRUE}
 ny_noaa %>%
-  select("year", "tmin", "tmax") %>%
-  na.omit() %>%
-  group_by(year) %>%
+  select("year", "month", "tmin", "tmax") %>%
   mutate(tmax = as.numeric((tmax)),
-         tmin = as.numeric((tmin))) %>%
+         tmin = as.numeric((tmin)),
+         month = as.numeric(month)) %>%
+  group_by(year, month) %>%
+  na.omit() %>%
   summarize(mean_tmin = mean(tmin),  
           mean_tmax = mean(tmax)) %>%
-  plot_ly(y = ~mean_tmin , x = ~mean_tmax , type = "scatter") %>%
-    layout(title = "Mean Tmax & Tmin")
-
-#for some reason, mode = "points" is giving you connected lines, have yet to trouble shoot that, color = ~"year" doesn't work either
-#also heads up, idk if actually saving our figures and then printing them is a good idea, might not print well on flexdashboard
+  gather(key = min_or_max, value = mean_temp, mean_tmin:mean_tmax) %>%
+  plot_ly(y = ~mean_temp, x = ~month , type = "scatter", mode = "lines", color = ~year)
 ```
 
-
-### Chart C
+### Figure 3: Average Maximum Temperatures for 2000-2010
 
 ```{r}
 ny_noaa %>%
@@ -73,6 +70,5 @@ ny_noaa %>%
   mutate(tmax = as.numeric(tmax)) %>%
   group_by(year, month) %>%
   summarize(mean_tmax = mean(tmax)) %>%
-  plot_ly(y = ~mean_tmax, color = ~month, type = "box") %>%
-    layout(title = "Average Maximum Temperatures for 2000-2010")
+  plot_ly(y = ~mean_tmax, color = ~month, type = "box")
 ```
