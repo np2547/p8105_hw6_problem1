@@ -50,9 +50,10 @@ Column {data-width=350}
 ny_noaa %>%
   filter(year == 2000) %>%
   select("id", "snow") %>%
+  mutate(id = as.factor(id)) %>%
   group_by(id) %>%
   summarize(snow = sum(snow)) %>%
-  mutate(snow = as.numeric(snow)) %>%
+  mutate(snow = as.numeric(snow), id = fct_reorder(id, snow)) %>%
   arrange(desc(snow)) %>%
   top_n(10) %>%
   plot_ly(x = ~id, y = ~snow, color = ~id, type = "bar")
