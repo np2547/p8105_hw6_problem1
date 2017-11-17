@@ -55,7 +55,7 @@ ny_noaa %>%
   mutate(snow = as.numeric(snow),
          id = fct_reorder(id, snow)) %>%
   arrange(desc(snow)) %>%
-  top_n(10) %>%
+  top_n(15) %>%
   plot_ly(x = ~id, y = ~snow, type = "bar")
 ```
 
