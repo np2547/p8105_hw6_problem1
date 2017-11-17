@@ -44,7 +44,7 @@ ny_noaa %>%
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Figure 2: Stations with the highest measure ofs sowfall in 2000
+### Figure 2: Stations with the Most Accumulation of Snowfall in 2000
 
 ```{r, cache = TRUE}
 ny_noaa %>%
@@ -52,14 +52,11 @@ ny_noaa %>%
   select("id", "snow") %>%
   group_by(id) %>%
   summarize(snow = sum(snow)) %>%
-<<<<<<< HEAD
-  mutate(snow = as.numeric(snow)) %>%
-=======
-  mutate(id = fct_reorder(id, snow)) %>%
->>>>>>> a929102c51b283ce6e9b712d2f4aa1ecb22b6a2f
+  mutate(snow = as.numeric(snow),
+         id = fct_reorder(id, snow)) %>%
   arrange(desc(snow)) %>%
   top_n(10) %>%
-  plot_ly(x = ~id, y = ~snow, color = ~id, type = "bar")
+  plot_ly(x = ~id, y = ~snow, type = "bar")
 ```
 
 
