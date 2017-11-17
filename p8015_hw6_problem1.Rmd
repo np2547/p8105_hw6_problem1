@@ -38,32 +38,34 @@ ny_noaa %>%
          prcp = as.numeric(prcp)) %>%
   group_by(year, month) %>%
   summarize(mean_prcp = mean(prcp)) %>%
-  plot_ly(y = ~mean_prcp, x = ~month, color = ~year, type = "scatter", mode = "lines") %>%
-    layout(title = "Annual Precipitation Trends")
+  plot_ly(y = ~mean_prcp, x = ~month, color = ~year, type = "scatter", mode = "lines")
 ```
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Figure 2: Comparison of Annual Maximum and Minimum Temperature Readings
+### Figure 2: Stations with the highest measure ofs sowfall in 2000
 
 ```{r, cache = TRUE}
 ny_noaa %>%
-  select("year", "month", "tmin", "tmax") %>%
-  mutate(tmax = as.numeric((tmax)),
-         tmin = as.numeric((tmin)),
-         month = as.numeric(month)) %>%
-  group_by(year, month) %>%
-  na.omit() %>%
-  summarize(mean_tmin = mean(tmin),  
-          mean_tmax = mean(tmax)) %>%
-  gather(key = min_or_max, value = mean_temp, mean_tmin:mean_tmax) %>%
-  plot_ly(y = ~mean_temp, x = ~month , type = "scatter", mode = "lines", color = ~year)
+  filter(year == 2000) %>%
+  select("id", "snow") %>%
+  group_by(id) %>%
+  summarize(snow = sum(snow)) %>%
+  mutate(snow = as.numeric(snow)) %>%
+  arrange(desc(snow)) %>%
+  top_n(10) %>%
+  plot_ly(x = ~id, y = ~snow, color = ~id, type = "bar")
 ```
+
+airbnb_data %>% 
+  count(neighbourhood) %>% 
+  mutate(neighbourhood = fct_reorder(neighbourhood, n)) %>% 
+  plot_ly(x = ~neighbourhood, y = ~n, color = ~neighbourhood, type = "bar")
 
 ### Figure 3: Average Maximum Temperatures for 2000-2010
 
-```{r}
+```{r, cache = TRUE}
 ny_noaa %>%
   select("year", "month", "tmax") %>%
   na.omit() %>%
