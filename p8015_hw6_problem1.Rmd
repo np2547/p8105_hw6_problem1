@@ -52,16 +52,16 @@ ny_noaa %>%
   select("id", "snow") %>%
   group_by(id) %>%
   summarize(snow = sum(snow)) %>%
+<<<<<<< HEAD
   mutate(snow = as.numeric(snow)) %>%
+=======
+  mutate(id = fct_reorder(id, snow)) %>%
+>>>>>>> a929102c51b283ce6e9b712d2f4aa1ecb22b6a2f
   arrange(desc(snow)) %>%
   top_n(10) %>%
   plot_ly(x = ~id, y = ~snow, color = ~id, type = "bar")
 ```
 
-airbnb_data %>% 
-  count(neighbourhood) %>% 
-  mutate(neighbourhood = fct_reorder(neighbourhood, n)) %>% 
-  plot_ly(x = ~neighbourhood, y = ~n, color = ~neighbourhood, type = "bar")
 
 ### Figure 3: Average Maximum Temperatures for 2000-2010
 
